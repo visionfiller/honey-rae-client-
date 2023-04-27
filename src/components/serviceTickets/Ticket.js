@@ -40,11 +40,19 @@ export const Ticket = () => {
 
     updateTicket(updatedTicket).then(() => fetchTicket())
   }
-
+const updateTicketEventCompleted = () => {
+  const completedTicket = {...ticket, 
+    date_completed: new Date().toISOString().split('T')[0]}
+    updateTicket(completedTicket).then(() => fetchTicket())
+  
+}
   const ticketStatus = () => {
     if (ticket.date_completed === null) {
       if (ticket.employee) {
-        return <span className="status--in-progress">In progress</span>
+        return <>
+         <span className="status--in-progress">In progress</span>
+         <button onClick={updateTicketEventCompleted}className="status--button">Mark Done</button>
+         </>
       }
       return <span className="status--new">Unclaimed</span>
     }
@@ -69,7 +77,7 @@ export const Ticket = () => {
       return <div className="ticket__employee">Assigned to {ticket.employee?.full_name ?? "no one"}</div>
     }
   }
-
+  
   return (
     <>
       <section className="ticket">

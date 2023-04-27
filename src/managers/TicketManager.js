@@ -38,6 +38,15 @@ export const searchTicketsByStatus = (status) => {
   })
     .then(res => res.json())
 }
+export const getTicketBySearchTerm = (searchTerm) => {
+  return fetch(`http://localhost:8000/tickets?search=${searchTerm}`, {
+    headers: {
+      Authorization: `Token ${getToken()}`
+    }
+  })
+      .then(res => res.json())
+}
+
 
 export const updateTicket = (ticket) => {
   return fetch(`http://localhost:8000/tickets/${ticket.id}`, {
